@@ -1,0 +1,99 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .header {
+    background-color: #f8f9fa;
+    padding: 10px;
+  }
+  
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .toolbar-buttons button {
+    margin-left: 10px;
+  }
+  
+  .split-pane {
+    display: flex;
+  }
+  
+  .menu {
+    width: 250px;
+    background-color: #f8f9fa;
+    padding: 10px;
+    height: 100vh;
+  }
+  
+  .menu header {
+    background-color: #e9ecef;
+    padding: 10px;
+  }
+  
+  .menu ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .menu li {
+    margin: 10px 0;
+  }
+  
+  .menu a {
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+  }
+  
+  .row {
+    display: contents;
+  }
+  
+  .row.header {
+    font-weight: bold;
+  }
+  
+  .col {
+    padding: 10px;
+    border: 1px solid #dee2e6;
+  }
+  
+  .card {
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 20px;
+    background-color: #ffffff;
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 0.9em;
+  }
+  

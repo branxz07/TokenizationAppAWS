@@ -1,0 +1,59 @@
+<!-- login.html -->
+<div class="login-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <input type="text" id="tokenDigIdentity" placeholder="Token Identity" required>
+      <button type="submit">Login</button>
+    </form>
+    <p id="loginError" style="color: red; display: none;">Invalid credentials, please try again.</p>
+  </div>
+  
+  <style>
+    .login-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+  
+    input {
+      display: block;
+      margin-bottom: 10px;
+    }
+  </style>
+  
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const loginError = document.getElementById('loginError');
+  
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const tokenDigIdentity = document.getElementById('tokenDigIdentity').value;
+  
+      // Simulating authentication
+      const user = authenticate(email, password, tokenDigIdentity);
+  
+      if (user) {
+        localStorage.setItem('user', JSON.stringify(user)); // Store user data
+        navigateTo('home');
+      } else {
+        loginError.style.display = 'block';
+      }
+    });
+  
+    function authenticate(email, password, tokenDigIdentity) {
+      // Mock users for authentication
+      const users = [
+        { email: 'user@user.com', password: 'password123', tokenDigIdentity: 'PQ90D20OUIP' },
+        { email: 'another@user.com', password: 'password123', tokenDigIdentity: 'AC073V0KPJE' }
+      ];
+  
+      return users.find(user => user.email === email && user.password === password && user.tokenDigIdentity === tokenDigIdentity);
+    }
+  </script>
+  

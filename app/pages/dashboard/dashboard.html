@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/style.css">
+
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="toolbar">
+      <h1>Dashboard</h1>
+      <div class="toolbar-buttons">
+        <button id="dashboardBtn">Home</button>
+        <button onclick="logout()">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="split-pane">
+    <!-- Menu -->
+    <nav class="menu">
+      <header>
+        <h2>Menu</h2>
+      </header>
+      <ul>
+        <li><a href="/my-entries">My Entries</a></li>
+        <li><a href="/global-entries">Global Entries</a></li>
+        <li><a href="/users">Users</a></li>
+        <li><a href="/digital-id-components">Digital ID components</a></li>
+        <li><a href="/roles">Roles</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <header>
+        <div class="toolbar">
+          <h2>Manage Users - My Entries</h2>
+          <div class="toolbar-buttons">
+            <button class="danger" onclick="deleteSelected()">Delete Selected</button>
+            <button class="success" onclick="addUser()">Add New User</button>
+          </div>
+        </div>
+      </header>
+
+      <section>
+        <!-- Search Bar -->
+        <input type="search" placeholder="Search by specific token" oninput="filterUsers(event)">
+
+        <!-- Select All Checkbox -->
+        <label>
+          <input type="checkbox" id="select-all" onchange="toggleSelectAll(event)">
+          Select All
+        </label>
+
+        <!-- User Table -->
+        <div class="grid">
+          <div class="row header">
+            <div class="col">Select</div>
+            <div class="col">Name</div>
+            <div class="col">Father Last name</div>
+            <div class="col">Email</div>
+            <div class="col">Token</div>
+            <div class="col">Role Level</div>
+            <div class="col">Actions</div>
+          </div>
+
+          <!-- User Rows (dynamically generated) -->
+          <!-- Example row -->
+          <div class="row">
+            <div class="col"><input type="checkbox"></div>
+            <div class="col">John Doe</div>
+            <div class="col">Doe</div>
+            <div class="col">john.doe@example.com</div>
+            <div class="col">123456</div>
+            <div class="col">Admin</div>
+            <div class="col">
+              <button onclick="startEditUser(user)">Edit</button>
+              <button class="danger" onclick="deleteUser(user)">Delete</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Edit User Form -->
+        <div class="overlay" id="edit-form">
+          <div class="card">
+            <header>
+              <h3>Edit User</h3>
+            </header>
+            <div class="content">
+              <label>Name
+                <input type="text" id="edit-name">
+              </label>
+              <label>Email
+                <input type="email" id="edit-email">
+              </label>
+              <label>Token
+                <input type="text" id="edit-token" disabled>
+              </label>
+              <label>Role
+                <input type="text" id="edit-role">
+              </label>
+              <button onclick="saveEdit()">Save</button>
+              <button class="danger" onclick="cancelEdit()">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add New User Form -->
+        <div class="overlay" id="add-form">
+          <div class="card">
+            <header>
+              <h3>Add New User</h3>
+            </header>
+            <div class="content">
+              <form onsubmit="saveNewUser(event)">
+                <label>Name
+                  <input type="text" id="new-name" required>
+                  <div class="error-message" id="name-error">Name is required.</div>
+                </label>
+                <label>Email
+                  <input type="email" id="new-email" required>
+                  <div class="error-message" id="email-error">Email is required.</div>
+                  <div class="error-message" id="email-format-error">Invalid email format.</div>
+                </label>
+                <label>Token
+                  <input type="text" id="new-token" required>
+                  <div class="error-message" id="token-error">Token is required.</div>
+                </label>
+                <label>Role Level
+                  <input type="text" id="new-role" required>
+                  <div class="error-message" id="role-error">Role is required.</div>
+                </label>
+                <button type="submit">Add User</button>
+                <button class="danger" onclick="cancelAdd()">Cancel</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('dashboardBtn').addEventListener('click', function() {
+        window.location.href = '/home'; // Navigate to the dashboard page
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', function() {
+        localStorage.clear(); // Clear user data
+        window.location.href = '/login'; // Redirect to the login page
+    });
+</script>
+<script>
+  // Function to show the Edit User form
+  function startEditUser(user) {
+    document.getElementById('edit-form').style.display = 'flex'; // Show the form
+    // Populate the form with user data
+    document.getElementById('edit-name').value = user.name;
+    document.getElementById('edit-email').value = user.email;
+    document.getElementById('edit-token').value = user.token;
+    document.getElementById('edit-role').value = user.role;
+  }
+
+  // Function to hide the Edit User form
+  function cancelEdit() {
+    document.getElementById('edit-form').style.display = 'none'; // Hide the form
+  }
+
+  // Function to show the Add New User form
+  function addUser() {
+    document.getElementById('add-form').style.display = 'flex'; // Show the form
+  }
+
+  // Function to hide the Add New User form
+  function cancelAdd() {
+    document.getElementById('add-form').style.display = 'none'; // Hide the form
+  }
+
+  // Function to save the new user
+  function saveNewUser(event) {
+    event.preventDefault();
+    // Implement saving functionality
+    document.getElementById('add-form').style.display = 'none'; // Hide the form
+  }
+
+  // Function to save the edited user
+  function saveEdit() {
+    // Implement saving functionality
+    document.getElementById('edit-form').style.display = 'none'; // Hide the form
+  }
+
+  // Function to delete selected users
+  function deleteSelected() {
+    // Implement delete functionality
+  }
+
+  // Function to filter users based on input
+  function filterUsers(event) {
+    // Implement filter functionality
+  }
+
+  // Function to select or deselect all checkboxes
+  function toggleSelectAll(event) {
+    let checkboxes = document.querySelectorAll('.grid .row input[type="checkbox"]');
+    checkboxes.forEach(checkbox => checkbox.checked = event.target.checked);
+  }
+
+  // Function to start editing a user
+  function editUser(user) {
+    startEditUser(user); // Example function to edit user
+  }
+
+  // Function to delete a user
+  function deleteUser(user) {
+    // Implement delete functionality
+  }
+
+  // Event listener for logout button
+  document.querySelector('button[onclick="logout()"]').addEventListener('click', function() {
+    localStorage.clear(); // Clear user data
+    window.location.href = '/login'; // Redirect to the login page
+  });
+
+  // Event listener for dashboard button
+  document.getElementById('dashboardBtn').addEventListener('click', function() {
+    window.location.href = '/home'; // Navigate to the dashboard page
+  });
+</script>
+
+</body>
+</html>
