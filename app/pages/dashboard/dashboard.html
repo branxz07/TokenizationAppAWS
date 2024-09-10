@@ -1,236 +1,232 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="/style.css">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-</head>
-<body>
-  <!-- Header -->
-  <header class="header">
-    <div class="toolbar">
-      <h1>Dashboard</h1>
-      <div class="toolbar-buttons">
-        <button id="dashboardBtn">Home</button>
-        <button onclick="logout()">Logout</button>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Add this in your <head> or before the closing </body> tag -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-mQ93FkI11Y+M/71Y6e4n5oqEpX97E+ZtGz7pcW8jxZQp63b4z5G2VjsZc5Kq7ZT" crossorigin="anonymous"></script>
+
+    <!--Bootstrap 5 icons CDN-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <title>CRUD Operations</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-dkPf9Q2u5I/MpIQFlH+Pz6y+pa67QQGP3I3ybGLYV2bTbo3GkeFTE6WyONjqR77N" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" href="/styleDashboard.css">
+
+  </head>
+  <body>
+    <div class="navDesing">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Dashboard Panel</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- Centered Search Bar -->
+          <form class="form-inline mx-auto my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+      
+          <!-- Right-side buttons -->
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Configuration</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Log Out</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      
+
+    <div class="container">
+      <div class="row">
+        <div class="col">Menu</div>
+        <div class="col">Dashboard</div>
+        <div class="w-100"></div>
+        <div class="col">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Active</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col"> 
+          <section class="p-3">
+            <div class="row">
+              <div class="col-12">
+                <button class="btn btn-primary newUser" data-bs-toggle="modal" data-bs-target="#userForm">New User <i class="bi bi-people"></i></button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <table class="table table-striped table-hover mt-3 text-center table-bordered">
+                  <thead>
+                    <tr>
+                      <th>S.No</th>
+                      <th>Picture</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>Address</th>
+                      <th>Gender</th>
+                      <th>Date of Birth</th>
+                      <th>City</th>
+                      <th>State</th>
+                      <th>Start Date</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="data"></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!--Modal Form-->
+          <div class="modal fade" id="userForm">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Fill the Form</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form action="#" id="myForm">
+                    <div class="card imgholder">
+                      <label for="imgInput" class="upload">
+                        <input type="file" name="" id="imgInput">
+                        <i class="bi bi-plus-circle-dotted"></i>
+                      </label>
+                      <img src="/images/ProfileIcon.webp" alt="" width="200" height="200" class="img">
+                    </div>
+                    <div class="inputField">
+                      <div>
+                        <label for="name">Name:</label>
+                        <input type="text" name="name" id="name" required>
+                      </div>
+                      <div>
+                        <label for="email">E-mail:</label>
+                        <input type="email" name="email" id="email" required>
+                      </div>
+                      <div>
+                        <label for="phone">Phone:</label>
+                        <input type="text" name="phone" id="phone" minlength="10" maxlength="15" required>
+                      </div>
+                      <div>
+                        <label for="address">Address:</label>
+                        <input type="text" name="address" id="address" required>
+                      </div>
+                      <div>
+                        <label for="gender">Gender:</label>
+                        <select name="gender" id="gender" required>
+                          <option value="true">Male</option>
+                          <option value="false">Female</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label for="bday">Date of Birth:</label>
+                        <input type="number" name="bday" id="bday" placeholder="Day" min="1" max="31" required>
+                        <input type="number" name="bmonth" id="bmonth" placeholder="Month" min="1" max="12" required>
+                        <input type="number" name="byear" id="byear" placeholder="Year" min="1900" max="2100" required>
+                      </div>
+                      <div>
+                        <label for="state">State:</label>
+                        <input type="text" name="state" id="state" required>
+                      </div>
+                      <div>
+                        <label for="municipality">Municipality:</label>
+                        <input type="text" name="municipality" id="municipality" required>
+                      </div>
+                      <div>
+                        <label for="dateCreation">Creation Date:</label>
+                        <input type="number" name="dateCreation" id="dateCreation" placeholder="Timestamp" required>
+                      </div>
+                      <div>
+                        <label for="dateLastUpdate">Last Update Date:</label>
+                        <input type="number" name="dateLastUpdate" id="dateLastUpdate" placeholder="Timestamp" required>
+                      </div>
+                      <div>
+                        <label for="tokenFather">Token Father:</label>
+                        <input type="text" name="tokenFather" id="tokenFather">
+                      </div>
+                      <div>
+                        <label for="tokenMother">Token Mother:</label>
+                        <input type="text" name="tokenMother" id="tokenMother">
+                      </div>
+                      <div>
+                        <label for="tokenDigIdentity">Token Digital Identity:</label>
+                        <input type="text" name="tokenDigIdentity" id="tokenDigIdentity">
+                      </div>
+                      <div>
+                        <label for="rolLevel">Role Level:</label>
+                        <input type="number" name="rolLevel" id="rolLevel" required>
+                      </div>
+                      <div>
+                        <label for="selected">Selected:</label>
+                        <input type="checkbox" name="selected" id="selected">
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" form="myForm" class="btn btn-primary submit">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!--Read Data Modal-->
+          <div class="modal fade" id="readData">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">View Details</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div id="details">
+                    <!-- Data will be injected here -->
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </header>
 
-  <!-- Main Content -->
-  <div class="split-pane">
-    <!-- Menu -->
-    <nav class="menu">
-      <header>
-        <h2>Menu</h2>
-      </header>
-      <ul>
-        <li><a href="/my-entries">My Entries</a></li>
-        <li><a href="/global-entries">Global Entries</a></li>
-        <li><a href="/users">Users</a></li>
-        <li><a href="/digital-id-components">Digital ID components</a></li>
-        <li><a href="/roles">Roles</a></li>
-      </ul>
-    </nav>
-
-    <!-- Main Content Area -->
-    <main class="main-content">
-      <header>
-        <div class="toolbar">
-          <h2>Manage Users - My Entries</h2>
-          <div class="toolbar-buttons">
-            <button class="danger" onclick="deleteSelected()">Delete Selected</button>
-            <button class="success" onclick="addUser()">Add New User</button>
-          </div>
-        </div>
-      </header>
-
-      <section>
-        <!-- Search Bar -->
-        <input type="search" placeholder="Search by specific token" oninput="filterUsers(event)">
-
-        <!-- Select All Checkbox -->
-        <label>
-          <input type="checkbox" id="select-all" onchange="toggleSelectAll(event)">
-          Select All
-        </label>
-
-        <!-- User Table -->
-        <div class="grid">
-          <div class="row header">
-            <div class="col">Select</div>
-            <div class="col">Name</div>
-            <div class="col">Father Last name</div>
-            <div class="col">Email</div>
-            <div class="col">Token</div>
-            <div class="col">Role Level</div>
-            <div class="col">Actions</div>
-          </div>
-
-          <!-- User Rows (dynamically generated) -->
-          <!-- Example row -->
-          <div class="row">
-            <div class="col"><input type="checkbox"></div>
-            <div class="col">John Doe</div>
-            <div class="col">Doe</div>
-            <div class="col">john.doe@example.com</div>
-            <div class="col">123456</div>
-            <div class="col">Admin</div>
-            <div class="col">
-              <button onclick="startEditUser(user)">Edit</button>
-              <button class="danger" onclick="deleteUser(user)">Delete</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Edit User Form -->
-        <div class="overlay" id="edit-form">
-          <div class="card">
-            <header>
-              <h3>Edit User</h3>
-            </header>
-            <div class="content">
-              <label>Name
-                <input type="text" id="edit-name">
-              </label>
-              <label>Email
-                <input type="email" id="edit-email">
-              </label>
-              <label>Token
-                <input type="text" id="edit-token" disabled>
-              </label>
-              <label>Role
-                <input type="text" id="edit-role">
-              </label>
-              <button onclick="saveEdit()">Save</button>
-              <button class="danger" onclick="cancelEdit()">Cancel</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Add New User Form -->
-        <div class="overlay" id="add-form">
-          <div class="card">
-            <header>
-              <h3>Add New User</h3>
-            </header>
-            <div class="content">
-              <form onsubmit="saveNewUser(event)">
-                <label>Name
-                  <input type="text" id="new-name" required>
-                  <div class="error-message" id="name-error">Name is required.</div>
-                </label>
-                <label>Email
-                  <input type="email" id="new-email" required>
-                  <div class="error-message" id="email-error">Email is required.</div>
-                  <div class="error-message" id="email-format-error">Invalid email format.</div>
-                </label>
-                <label>Token
-                  <input type="text" id="new-token" required>
-                  <div class="error-message" id="token-error">Token is required.</div>
-                </label>
-                <label>Role Level
-                  <input type="text" id="new-role" required>
-                  <div class="error-message" id="role-error">Role is required.</div>
-                </label>
-                <button type="submit">Add User</button>
-                <button class="danger" onclick="cancelAdd()">Cancel</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <script>
-    document.getElementById('dashboardBtn').addEventListener('click', function() {
-        window.location.href = '/home'; // Navigate to the dashboard page
-    });
-
-    document.getElementById('logoutBtn').addEventListener('click', function() {
-        localStorage.clear(); // Clear user data
-        window.location.href = '/login'; // Redirect to the login page
-    });
-</script>
-<script>
-  // Function to show the Edit User form
-  function startEditUser(user) {
-    document.getElementById('edit-form').style.display = 'flex'; // Show the form
-    // Populate the form with user data
-    document.getElementById('edit-name').value = user.name;
-    document.getElementById('edit-email').value = user.email;
-    document.getElementById('edit-token').value = user.token;
-    document.getElementById('edit-role').value = user.role;
-  }
-
-  // Function to hide the Edit User form
-  function cancelEdit() {
-    document.getElementById('edit-form').style.display = 'none'; // Hide the form
-  }
-
-  // Function to show the Add New User form
-  function addUser() {
-    document.getElementById('add-form').style.display = 'flex'; // Show the form
-  }
-
-  // Function to hide the Add New User form
-  function cancelAdd() {
-    document.getElementById('add-form').style.display = 'none'; // Hide the form
-  }
-
-  // Function to save the new user
-  function saveNewUser(event) {
-    event.preventDefault();
-    // Implement saving functionality
-    document.getElementById('add-form').style.display = 'none'; // Hide the form
-  }
-
-  // Function to save the edited user
-  function saveEdit() {
-    // Implement saving functionality
-    document.getElementById('edit-form').style.display = 'none'; // Hide the form
-  }
-
-  // Function to delete selected users
-  function deleteSelected() {
-    // Implement delete functionality
-  }
-
-  // Function to filter users based on input
-  function filterUsers(event) {
-    // Implement filter functionality
-  }
-
-  // Function to select or deselect all checkboxes
-  function toggleSelectAll(event) {
-    let checkboxes = document.querySelectorAll('.grid .row input[type="checkbox"]');
-    checkboxes.forEach(checkbox => checkbox.checked = event.target.checked);
-  }
-
-  // Function to start editing a user
-  function editUser(user) {
-    startEditUser(user); // Example function to edit user
-  }
-
-  // Function to delete a user
-  function deleteUser(user) {
-    // Implement delete functionality
-  }
-
-  // Event listener for logout button
-  document.querySelector('button[onclick="logout()"]').addEventListener('click', function() {
-    localStorage.clear(); // Clear user data
-    window.location.href = '/login'; // Redirect to the login page
-  });
-
-  // Event listener for dashboard button
-  document.getElementById('dashboardBtn').addEventListener('click', function() {
-    window.location.href = '/home'; // Navigate to the dashboard page
-  });
-</script>
-
-</body>
+    <!-- Optional JavaScript -->
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76A6pk2HQgykTfZiZ6tLr8G4WMyQ2/36cP5WIeup7clb29A5vPpLNN19ctW4D16" crossorigin="anonymous"></script>
+    <script src="/Dashscript.js"></script>
+  </body>
 </html>
