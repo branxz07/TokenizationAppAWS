@@ -26,7 +26,7 @@ app.get('/dashboard', (req, res) => {
 });
 
 app.listen(8100, () => {
-    console.log('Server is running on port 3000');
+    console.log('Server is running on port 8100');
     });
 
 
